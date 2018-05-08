@@ -8,7 +8,7 @@ import { Author, View, FortuneCookie } from './connectors';
      allAuthors(_, args) {
        return Author.findAll();
      },
-     getFortuneCookie(_, args){
+     getFortuneCookie(_, args, context, filter ){
        return FortuneCookie.getOne();
      }
    },

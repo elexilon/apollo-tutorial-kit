@@ -7,16 +7,22 @@ import { ApolloEngine } from 'apollo-engine';
 
 const app = express();
 const engine = new ApolloEngine({
-  apiKey: process.env.ENGINE_API_KEY,
   stores: [{
-    name: 'inMemEmbeddedCache',
-    inMemory: {
-      cacheSize: 20971520 // 20 MB
-    }
+    name: 'privateResponseMemcache',
+    memcache: {
+      url: ['localhost:4567'],
+    },
   }],
+  sessionAuth: {
+    header: 'Authorization',
+    tokenAuthUrl: 'https://auth.mycompany.com/engine-auth-check',
+  },
   queryCache: {
-    publicFullQueryStore: 'inMemEmbeddedCache'
-  }
+    privateFullQueryStore: 'privateResponseMemcache',
+    // By not mentioning publicFullQueryStore, we keep it enabled with
+    // the default empty-string-named in-memory store.
+  },
+  apiKey: process.env.ENGINE_API_KEY,
 });
 
 app

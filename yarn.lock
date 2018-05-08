@@ -185,7 +185,7 @@ anymatch@^2.0.0:
     micromatch "^3.1.4"
     normalize-path "^2.1.1"
 
-apollo-cache-control@^0.1.0:
+apollo-cache-control@^0.1.0, apollo-cache-control@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/apollo-cache-control/-/apollo-cache-control-0.1.1.tgz#173d14ceb3eb9e7cb53de7eb8b61bee6159d4171"
   dependencies:
