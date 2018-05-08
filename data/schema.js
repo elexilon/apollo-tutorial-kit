@@ -3,9 +3,9 @@ import resolvers from './resolvers'
 
 const typeDefs = `
 type Query {
-  author(firstName: String, lastName: String): Author
+  author(firstName: String, lastName: String): Author 
   allAuthors: [Author]
-  getFortuneCookie: String # we'll use this later
+  getFortuneCookie: String @cacheControl(maxAge: 5)
 }
 
 type Author {

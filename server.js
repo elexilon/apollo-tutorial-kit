@@ -8,6 +8,15 @@ import { ApolloEngine } from 'apollo-engine';
 const app = express();
 const engine = new ApolloEngine({
   apiKey: process.env.ENGINE_API_KEY,
+  stores: [{
+    name: 'inMemEmbeddedCache',
+    inMemory: {
+      cacheSize: 20971520 // 20 MB
+    }
+  }],
+  queryCache: {
+    publicFullQueryStore: 'inMemEmbeddedCache'
+  }
 });
 
 app
@@ -16,8 +25,9 @@ app
   .use(compression())
   .use('/graphql', bodyParser.json(), graphqlExpress({
     schema,
-    // This option turns on tracing
-    tracing: true
+    context: {},
+    tracing: true,
+    cacheControl: true
   }));
 
 // No engine.start() or app.use() required!
@@ -29,7 +39,7 @@ engine.listen({
   expressApp: app,
   launcherOptions: {
     startupTimeout: 3000,
-  },
+  }
 }, () => {
   console.log('Listening!');
 });
