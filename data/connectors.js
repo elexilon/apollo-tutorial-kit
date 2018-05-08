@@ -10,6 +10,7 @@ import fetch from 'node-fetch';
 const db = new Sequelize('blog', null, null, {
   dialect: 'sqlite',
   storage: './blog.sqlite',
+  operatorsAliases: false
 });
 
 const AuthorModel = db.define('author', {
